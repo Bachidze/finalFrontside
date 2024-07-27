@@ -34,7 +34,7 @@ export default function SignUp() {
     }
     setLoading(true);
     try {
-      const resp = await axios.post("http://localhost:3000/auth/sign-up", {
+      const resp = await axios.post("https://finalbackside.onrender.com/auth/sign-up", {
         name,
         lastName,
         email,
@@ -43,7 +43,7 @@ export default function SignUp() {
 
       if (resp.status === 201) {
         console.log('Sign-up successful!');
-        router.push("/sign-in"); // Redirect to Sign-In page
+        router.push("/sign-in"); 
       }
     } catch (error: any) {
       if (error.response && error.response.status === 400) {

@@ -32,7 +32,7 @@ export default function MainPage() {
         if (!token) throw new Error("No token found in localStorage");
 
         const authResponse = await axios.get(
-          "http://localhost:3000/auth/current-user",
+          "https://finalbackside.onrender.com/auth/current-user",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -42,7 +42,7 @@ export default function MainPage() {
           throw new Error("Failed to authenticate token");
         }
 
-        const postsResponse = await axios.get("http://localhost:3000/posts", {
+        const postsResponse = await axios.get("https://finalbackside.onrender.com/posts", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -69,7 +69,7 @@ export default function MainPage() {
     try {
       const token = localStorage.getItem("token");
       const postResponse = await axios.post(
-        "http://localhost:3000/posts",
+        "https://finalbackside.onrender.com/posts",
         { title, content },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -92,7 +92,7 @@ export default function MainPage() {
     try {
       const token = localStorage.getItem("token");
       const deleteResponse = await axios.delete(
-        `http://localhost:3000/posts/${_id}`,
+        `https://finalbackside.onrender.com/posts/${_id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -112,7 +112,7 @@ export default function MainPage() {
     try {
       const token = localStorage.getItem("token");
       const updateResponse = await axios.patch(
-        `http://localhost:3000/posts/${_id}`,
+        `https://finalbackside.onrender.com/posts/${_id}`,
         { title: editTitle, content: editContent },
         {
           headers: { Authorization: `Bearer ${token}` },
