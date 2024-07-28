@@ -149,15 +149,15 @@ export default function MainPage() {
   return (
     <main className="w-[87%] m-auto pt-6">
       <section className="flex justify-between pb-[32px]">
-        <div className="text-[#858BB2]">
+        <div className="text-white dark:text-[#0C0E16]">
           <h2>Invoices</h2>
           <h4>{posts.length} invoices</h4>
         </div>
         <div className="flex gap-8">
-          <div className="text-[#858BB2]">
+          <div className="text-white dark:text-[#0C0E16]">
             <button
               onClick={() => setFilterVisible(!filterVisible)}
-              className="bg-blue-500 p-2 rounded"
+              className="bg-blue-500 p-2 rounded dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
             >
               {filterVisible ? "Hide Filter" : "Show Filter"}
             </button>
@@ -167,7 +167,7 @@ export default function MainPage() {
                 placeholder="Filter by title"
                 value={filterText}
                 onChange={(e) => setFilterText(e.target.value)}
-                className="block w-full mt-2 p-2 border border[#858BB2] rounded text-[#858BB2]"
+                className="block w-full mt-2 p-2 border borderwhite rounded text-black dark:border-2 dark:border-[#1E2139] outline-none"
               />
             )}
           </div>
@@ -179,25 +179,25 @@ export default function MainPage() {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="block w-full mb-2 p-2 border border-[#858BB2] rounded"
+          className="block w-full mb-2 p-2 border border-white rounded dark:border-2 dark:border-[#1E2139] outline-none"
         />
         <input
           type="text"
           placeholder="Description"
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="block w-full mb-2 p-2 border border-[#858BB2] rounded"
+          className="block w-full mb-2 p-2 border border-white rounded dark:border-2 dark:border-[#1E2139] outline-none"
         />
-        <button type="submit" className="p-2 bg-blue-500 text-[#858BB2] rounded">
+        <button type="submit" className="p-2 bg-blue-500 text-white rounded dark:text-[#0C0E16]  dark:bg-transparent dark:border-2 dark:border-[#1E2139]">
           Add Post
         </button>
       </form>
       {filteredPosts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 dark:text-[#0C0E16]">
           {filteredPosts.map((post) => (
             <motion.div
               key={post._id}
-              className="bg-[#1E2139] p-4 rounded-md shadow-md text-[#858BB2]"
+              className="bg-[#1E2139] p-4 rounded-md shadow-md text-white dark:bg-white dark:border-2 dark:border-[#1E2139]"
               initial={{ opacity: 1, x: 0 }}
               animate={{ opacity: deletingPostId === post._id ? 0 : 1, x: deletingPostId === post._id ? 50 : 0 }}
               exit={{ opacity: 0, x: 50 }}
@@ -214,15 +214,15 @@ export default function MainPage() {
                     type="text"
                     value={editTitle}
                     onChange={(e) => setEditTitle(e.target.value)}
-                    className="block w-full mb-2 p-2 border border-[#858BB2] rounded text-[#858BB2]"
+                    className="block w-full mb-2 p-2 border border-white rounded text-black dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
                   />
                   <input
                     type="text"
                     value={editContent}
                     onChange={(e) => setEditContent(e.target.value)}
-                    className="block w-full mb-2 p-2 border border-[#858BB2] rounded text-[#858BB2]"
+                    className="block w-full mb-2 p-2 border border-white rounded text-black dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
                   />
-                  <button type="submit" className="p-2 bg-green-500 text-[#858BB2] rounded mt-2">
+                  <button type="submit" className="p-2 bg-green-500 text-white rounded mt-2 dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]">
                     Save
                   </button>
                   <button
@@ -232,18 +232,18 @@ export default function MainPage() {
                       setEditTitle("");
                       setEditContent("");
                     }}
-                    className="p-2 bg-[#858BB2] text-[#858BB2] rounded mt-2 ml-2"
+                    className="p-2 bg-[#6e2d6e] rounded mt-2 ml-2 text dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
                   >
                     Cancel
                   </button>
                 </form>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold">{post.title}</h3>
-                  <p>{post.content}</p>
+                  <h3 className="text-xl font-bold dark:text-[#0C0E16]">{post.title}</h3>
+                  <p className="dark:text-[#0C0E16]">{post.content}</p>
                   <button
                     onClick={() => handleDeletePost(post._id)}
-                    className="p-2 bg-red-500 text-white rounded mt-2"
+                    className="p-2 bg-red-500 text-white rounded mt-2 dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
                   >
                     Delete
                   </button>
@@ -253,7 +253,7 @@ export default function MainPage() {
                       setEditTitle(post.title);
                       setEditContent(post.content);
                     }}
-                    className="p-2 bg-yellow-500 text-white rounded mt-2 ml-2"
+                    className="p-2 bg-yellow-500 text-white rounded mt-2 ml-2 dark:text-[#0C0E16]  dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
                   >
                     Update
                   </button>
@@ -263,7 +263,7 @@ export default function MainPage() {
           ))}
         </div>
       ) : (
-        <p className="text-white">No posts available.</p>
+        <p className="text-white dark:text-[#0C0E16]">No posts available.</p>
       )}
     </main>
   );

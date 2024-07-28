@@ -70,13 +70,13 @@ export default function SignUp() {
 
   return (
     <main className="flex justify-center items-center h-[100vh]">
-      <section className="border-[4px] border-[#858BB2] rounded-[10px] w-[325px] h-[350px] flex justify-center items-center">
+      <section className="border-[4px] border-[#858BB2] rounded-[10px] w-[350px] h-[375px] flex justify-center items-center dark:border-black md:w-[390px] md:h-[445px]">
         <form onSubmit={onSubmit}>
           {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
           <div className="flex gap-5 flex-col">
             <div>
               <input
-                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent"
+                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent p-1  outline-none md:p-2 xl:p-3  dark:border-black dark:text-black dark:placeholder:text-black"
                 type="text"
                 placeholder="Name"
                 aria-label="Name"
@@ -87,7 +87,7 @@ export default function SignUp() {
             </div>
             <div>
               <input
-                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent"
+                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent p-1  outline-none md:p-2 xl:p-3  dark:border-black dark:text-black dark:placeholder:text-black"
                 type="text"
                 placeholder="Last Name"
                 aria-label="Last Name"
@@ -100,7 +100,7 @@ export default function SignUp() {
             </div>
             <div>
               <input
-                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent"
+                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent p-1 outline-none md:p-2 xl:p-3  dark:border-black dark:text-black dark:placeholder:text-black"
                 type="text"
                 placeholder="Email"
                 aria-label="Email"
@@ -111,7 +111,7 @@ export default function SignUp() {
             </div>
             <div>
               <input
-                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent"
+                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent p-1  outline-none md:p-2 xl:p-3  dark:border-black dark:text-black dark:placeholder:text-black"
                 type="password"
                 placeholder="Password"
                 aria-label="Password"
@@ -123,10 +123,10 @@ export default function SignUp() {
               )}
             </div>
             <div className="flex justify-between ">
-              <button disabled={loading} className="text-[#858BB2]">
+              <button disabled={loading} className="text-[#858BB2] dark:text-black">
                 {loading ? "Submitting..." : "Submit"}
               </button>
-              <Link href="/sign-in" className="text-[#858BB2]">
+              <Link href="/sign-in" className="text-[#858BB2] dark:text-black">
                 Sign In
               </Link>
             </div>

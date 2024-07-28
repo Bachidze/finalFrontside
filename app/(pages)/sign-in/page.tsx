@@ -71,46 +71,45 @@ export default function SignIn() {
   };
 
   return (
-    <main className="flex justify-center items-center h-[100vh]">
-      <section className="border-[4px] border-[#858BB2] rounded-[10px] w-[325px] h-[250px] flex justify-center items-center">
-        <form onSubmit={onSubmit}>
-          {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
-          <div className="flex flex-col gap-5">
-            <div>
-              <input
-                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent"
-                type="text"
-                placeholder="Email"
-                aria-label="Email"
-                value={email}
-                onChange={(e) => handleChange(e, setEmail, "email")}
-              />
-              {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-            </div>
-            <div>
-              <input
-                className="placeholder:text-[#858BB2] text-[#858BB2] border-[2px] border-[#858BB2] rounded-[5px] bg-transparent"
-                type="password"
-                placeholder="Password"
-                aria-label="Password"
-                value={password}
-                onChange={(e) => handleChange(e, setPassword, "password")}
-              />
-              {errors.password && (
-                <p style={{ color: "red" }}>{errors.password}</p>
-              )}
-            </div>
-          </div>
-          <div className="flex justify-between pt-3">
-            <button disabled={loading} className="text-[#858BB2]">
-              {loading ? "Signing in..." : "Submit"}
-            </button>
-            <Link href="/sign-up" className="text-[#858BB2]">
-              Sign Up
-            </Link>
-          </div>
-        </form>
-      </section>
-    </main>
+    <main className="flex justify-center items-center h-[100vh] ">
+    <section className="border-[4px] border-[#858BB2] rounded-[10px] w-[325px] h-[250px] flex justify-center items-center md:w-[375px] md:h-[320px] xl:w-[390px] xl:h-[335px] dark:border-black">
+      <form onSubmit={onSubmit}>
+        <div className="flex flex-col gap-5">
+        <div>
+          <input
+          className="placeholder:text-[#858BB2] border-[2px] border-[#placeholder:text-[#858BB2] rounded-[5px] bg-transparent p-1 text-[#858BB2] outline-none md:p-2 xl:p-3  dark:border-black dark:text-black dark:placeholder:text-black"
+            type="text"
+            placeholder="Email"
+            aria-label="Email"
+            value={email}
+            onChange={(e) => handleChange(e, setEmail, "email")}
+          />
+          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+        </div>
+        <div>
+          <input
+          className="placeholder:text-[#858BB2] border-[2px] border-[#placeholder:text-[#858BB2] rounded-[5px] bg-transparent p-1 text-[#858BB2] outline-none md:p-2 xl:p-3 dark:border-black dark:text-black dark:placeholder:text-black"
+            type="password"
+            placeholder="Password"
+            aria-label="Password"
+            value={password}
+            onChange={(e) => handleChange(e, setPassword, "password")}
+          />
+          {errors.password && (
+            <p style={{ color: "red" }}>{errors.password}</p>
+          )}
+        </div>
+        </div>
+        <div className="flex justify-between pt-3">
+          <button disabled={loading} className="text-[#858BB2] dark:text-black">
+            {loading ? "Signing in..." : "Submit"}
+          </button>
+          <Link href={"sign-up"} className="text-[#858BB2] dark:text-black">
+            Sign Up
+          </Link>
+        </div>
+      </form>
+    </section>
+  </main>
   );
 }
