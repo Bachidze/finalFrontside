@@ -1,9 +1,11 @@
-"use client"; 
+"use client";
 
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Post {
   _id: string;
@@ -15,15 +17,15 @@ export default function MainPage() {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [editPostId, setEditPostId] = useState<string | null>(null); 
+  const [editPostId, setEditPostId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState<string>("");
   const [editContent, setEditContent] = useState<string>("");
-  const [filterVisible, setFilterVisible] = useState(false); 
-  const [filterText, setFilterText] = useState(""); 
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [filterText, setFilterText] = useState("");
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [deletingPostId, setDeletingPostId] = useState<string | null>(null); 
+  const [deletingPostId, setDeletingPostId] = useState<string | null>(null);
 
   useEffect(() => {
     async function checkAuth() {
@@ -42,9 +44,12 @@ export default function MainPage() {
           throw new Error("Failed to authenticate token");
         }
 
-        const postsResponse = await axios.get("https://finalbackside.onrender.com/posts", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const postsResponse = await axios.get(
+          "https://finalbackside.onrender.com/posts",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (postsResponse.status === 200) {
           setPosts(postsResponse.data);
@@ -66,6 +71,19 @@ export default function MainPage() {
 
   const handleSubmitFnc = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (title.trim() === "" || content.trim() === "") {
+      toast.error("Title and content cannot be empty", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
     try {
       const token = localStorage.getItem("token");
       const postResponse = await axios.post(
@@ -80,6 +98,16 @@ export default function MainPage() {
         setPosts([...posts, postResponse.data]);
         setTitle("");
         setContent("");
+        toast("Post created successfully", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -87,7 +115,7 @@ export default function MainPage() {
   };
 
   const handleDeletePost = async (_id: string) => {
-    setDeletingPostId(_id); 
+    setDeletingPostId(_id);
 
     try {
       const token = localStorage.getItem("token");
@@ -104,8 +132,18 @@ export default function MainPage() {
     } catch (error) {
       console.log(error);
     } finally {
-      setDeletingPostId(null); 
+      setDeletingPostId(null);
     }
+    toast("Post deleted successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   const handleUpdatePost = async (_id: string) => {
@@ -122,19 +160,31 @@ export default function MainPage() {
       if (updateResponse.status === 200) {
         setPosts(
           posts.map((post) =>
-            post._id === _id ? { ...post, title: editTitle, content: editContent } : post
+            post._id === _id
+              ? { ...post, title: editTitle, content: editContent }
+              : post
           )
         );
-        setEditPostId(null); 
+        setEditPostId(null);
         setEditTitle("");
         setEditContent("");
       }
     } catch (error) {
       console.log(error);
     }
+    toast.info("Post updated successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
-  const filteredPosts = posts.filter(post =>
+  const filteredPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(filterText.toLowerCase())
   );
 
@@ -188,9 +238,13 @@ export default function MainPage() {
           onChange={(e) => setContent(e.target.value)}
           className="block w-full mb-2 p-2 border border-white rounded dark:border-2 dark:border-[#1E2139] outline-none"
         />
-        <button type="submit" className="p-2 bg-blue-500 text-white rounded dark:text-[#0C0E16]  dark:bg-transparent dark:border-2 dark:border-[#1E2139]">
+        <button
+          type="submit"
+          className="p-2 bg-blue-500 text-white rounded dark:text-[#0C0E16]  dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
+        >
           Add Post
         </button>
+        <ToastContainer />
       </form>
       {filteredPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 dark:text-[#0C0E16]">
@@ -199,7 +253,10 @@ export default function MainPage() {
               key={post._id}
               className="bg-[#1E2139] p-4 rounded-md shadow-md text-white dark:bg-white dark:border-2 dark:border-[#1E2139]"
               initial={{ opacity: 1, x: 0 }}
-              animate={{ opacity: deletingPostId === post._id ? 0 : 1, x: deletingPostId === post._id ? 50 : 0 }}
+              animate={{
+                opacity: deletingPostId === post._id ? 0 : 1,
+                x: deletingPostId === post._id ? 50 : 0,
+              }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
             >
@@ -222,7 +279,10 @@ export default function MainPage() {
                     onChange={(e) => setEditContent(e.target.value)}
                     className="block w-full mb-2 p-2 border border-white rounded text-black dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
                   />
-                  <button type="submit" className="p-2 bg-green-500 text-white rounded mt-2 dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]">
+                  <button
+                    type="submit"
+                    className="p-2 bg-green-500 text-white rounded mt-2 dark:text-[#0C0E16] dark:bg-transparent dark:border-2 dark:border-[#1E2139]"
+                  >
                     Save
                   </button>
                   <button
@@ -239,7 +299,9 @@ export default function MainPage() {
                 </form>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold dark:text-[#0C0E16]">{post.title}</h3>
+                  <h3 className="text-xl font-bold dark:text-[#0C0E16]">
+                    {post.title}
+                  </h3>
                   <p className="dark:text-[#0C0E16]">{post.content}</p>
                   <button
                     onClick={() => handleDeletePost(post._id)}
